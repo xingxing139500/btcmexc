@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    </head>
+    <body>
+    <h1 style="text-align: center;">Welcome to Crypto Currency Exchange!</h1>
+    <hr>
+    <p>You can buy/sell your digital currency in here:</p>
+    
+    <form action="action.php" method="post">
+    <label for="amount">Amount:</label>
+    <input type="text" name="amount" value="0" />
+    <select name="currency">
+    <option value="BTC">BTC</option>
+    <option value="ETH">ETH</option>
+    <option value="LTC">LTC</option>
+    </select> 
+    <input type="submit" name="action" value="Sell" />
+    <input type="submit" name="action" value="Buy" />
+    </form>
+    
+    <p>You can check your wallet balance:</p>
+    
+    <div style="display:flex" >
+    <div style="display:flex" margin: 100px >
+    <div style="display:flex" margin: 100px >
+    <p >BTC: <span id="btcBal">0</span></p>
+    <p>ETH: <span id="ethBal">0</span></p>
+    <p>LTC: <span id="ltcBal">0</span></p></div>
+      
+    <script>
+        // Get wallet balances
+        function getBalance() {
+            // Ajax request
+            fetch('balances.php')
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    // update the DOM with the received data
+                    document.getElementById('btcBal').innerText = data.btc;
+                    document.getElementById('ethBal').innerText = data.eth;
+                    document.getElementById('ltcBal').innerText = data.ltc;
+                });
+        }    
+      
+        // invoke the function every 3 seconds 
+        window.setInterval(getBalance, 3000);
+    </script>   
+    
+</body>
+</html>
